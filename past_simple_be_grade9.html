@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 3 – I Care | Past of "BE"</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Rubik:wght@400;500;700&display=swap');
+
+  :root {
+    --blue: #1a5fa8;
+    --blue-light: #e8f1fb;
+    --gold: #e6a817;
+    --green: #2e8b57;
+    --green-light: #e6f4ec;
+    --red: #c0392b;
+    --red-light: #fdecea;
+    --gray: #f4f6f9;
+    --border: #d0dcea;
+    --text: #1e2d3d;
+    --muted: #6b7a8d;
+    --white: #ffffff;
+    --shadow: 0 2px 12px rgba(26,95,168,0.10);
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #eef3fb;
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 100px;
+  }
+
+  /* ── STICKY SCORE BAR ── */
+  #score-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: var(--blue);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 52px;
+    box-shadow: 0 2px 10px rgba(26,95,168,0.25);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  #score-bar .title-bar { font-size: 1rem; font-weight: 800; letter-spacing: 0.5px; }
+  #score-display {
+    background: var(--gold);
+    color: #fff;
+    border-radius: 20px;
+    padding: 4px 18px;
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    min-width: 90px;
+    text-align: center;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    margin-top: 52px;
+    background: var(--white);
+    border-bottom: 3px solid var(--blue-light);
+    padding: 18px 28px 12px;
+  }
+  .page-header .unit-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .page-header h1 {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--blue);
+  }
+  .page-header h1 span { color: var(--gold); }
+
+  /* ── TAB NAV ── */
+  .tab-nav {
+    display: flex;
+    gap: 0;
+    background: var(--white);
+    border-bottom: 2px solid var(--border);
+    padding: 0 20px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 13px 22px;
+    border: none;
+    background: transparent;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+  .tab-btn:hover:not(.active) { color: var(--blue); }
+
+  /* ── TAB CONTENT ── */
+  .tab-pane { display: none; padding: 24px 20px; max-width: 860px; margin: 0 auto; }
+  .tab-pane.active { display: block; }
+
+  /* ── SECTION CARDS ── */
+  .section-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 24px;
+    margin-bottom: 22px;
+    border: 1.5px solid var(--border);
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--blue);
+    margin-bottom: 10px;
+  }
+  .section-label .badge {
+    background: var(--blue);
+    color: #fff;
+    border-radius: 8px;
+    padding: 2px 10px;
+    font-size: 1rem;
+  }
+
+  .remind-box {
+    background: var(--blue-light);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+    font-size: 0.95rem;
+  }
+  .remind-box .heb { text-align: right; font-size: 0.85rem; color: var(--muted); margin-bottom: 6px; direction: rtl; }
+  .remind-box strong { color: var(--blue); }
+
+  /* Was/Were pills */
+  .word-pills {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 10px 0 16px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    background: #f5e6c8;
+    color: #8a5e0a;
+    border-radius: 20px;
+    padding: 5px 22px;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
+
+  /* Pronoun chart */
+  .pronoun-chart {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .pronoun-col {
+    background: var(--gray);
+    border-radius: 10px;
+    padding: 12px 20px;
+    text-align: center;
+    min-width: 130px;
+  }
+  .pronoun-col .pronouns { color: var(--blue); font-weight: 700; font-size: 0.97rem; line-height: 1.8; }
+  .pronoun-col .verb { font-weight: 900; font-size: 1.1rem; color: var(--text); margin-top: 8px; }
+
+  /* Examples block */
+  .examples { margin: 8px 0 4px 0; }
+  .examples p { margin-bottom: 5px; font-style: italic; font-size: 0.95rem; color: #444; }
+  .examples p span.verb-highlight { color: var(--red); font-weight: 800; font-style: normal; }
+
+  /* Section B note */
+  .note-bilingual {
+    background: var(--blue-light);
+    border-radius: 10px;
+    padding: 12px 18px;
+    margin-bottom: 14px;
+    font-size: 0.92rem;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .note-bilingual .heb-note { direction: rtl; text-align: right; color: var(--text); font-weight: 600; flex: 1; }
+  .note-bilingual .ara-note { direction: rtl; text-align: right; color: var(--muted); font-size: 0.85rem; flex: 1; }
+
+  /* ── TEXT PASSAGE ── */
+  .passage-box {
+    background: #fdf8f0;
+    border: 1.5px dashed #d4b27a;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 18px;
+    font-size: 0.97rem;
+    line-height: 1.9;
+  }
+  .passage-box h3 { text-align: center; font-weight: 900; margin-bottom: 10px; color: var(--text); }
+  .passage-box .tip-note {
+    background: #fff3cd;
+    border-left: 4px solid var(--gold);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #7a5a00;
+  }
+  .passage-box .tip-note strong { color: var(--gold); }
+
+  /* Dialogue */
+  .dialogue-box {
+    background: #f8fdfb;
+    border: 1.5px solid #b2d8c4;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+    font-size: 0.96rem;
+    line-height: 2;
+  }
+  .dialogue-box .speaker-meg { color: #1a5fa8; font-weight: 800; }
+  .dialogue-box .speaker-peg { color: #2e8b57; font-weight: 800; }
+  .dialogue-box .speaker-betty { color: #1a5fa8; font-weight: 800; }
+  .dialogue-box .speaker-arnold { color: #c0392b; font-weight: 800; }
+  .dialogue-box .verb-bold { font-weight: 800; }
+
+  /* ── READING / CAUSE-EFFECT ── */
+  .mag-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 2px solid #b8001f;
+    overflow: hidden;
+    margin-bottom: 22px;
+  }
+  .mag-header {
+    background: #b8001f;
+    color: #fff;
+    font-weight: 900;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mag-header .num-badge {
+    background: #fff;
+    color: #b8001f;
+    font-weight: 900;
+    border-radius: 50%;
+    width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .mag-body { padding: 18px 20px; }
+  .article-tag {
+    display: inline-block;
+    background: #fff3e0;
+    border: 1.5px solid #e6a817;
+    border-radius: 6px;
+    padding: 4px 14px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #8a5e0a;
+    margin-bottom: 10px;
+  }
+  .article-tag .subtitle { font-weight: 600; font-style: italic; color: #2e8b57; display:block; font-size:0.82rem; }
+  .article-text {
+    font-size: 0.93rem;
+    line-height: 1.85;
+    color: #2a2a2a;
+    background: #f5f5f0;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .article-text .line-num { color: #aaa; font-size: 0.78rem; margin-right: 6px; user-select:none; }
+
+  /* Questions */
+  .q-block { margin-bottom: 16px; }
+  .q-label { font-weight: 800; color: #1a5fa8; margin-bottom: 6px; font-size: 0.93rem; }
+  .q-prompt { font-size: 0.9rem; color: #444; margin-bottom: 6px; }
+  textarea.q-answer {
+    width: 100%;
+    border: 2px solid #9b72d0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    resize: vertical;
+    min-height: 55px;
+    outline: none;
+    color: var(--text);
+    background: #faf5ff;
+    transition: border-color 0.2s;
+  }
+  textarea.q-answer:focus { border-color: #6b3fa0; }
+
+  /* Cause-Effect diagram */
+  .ce-diagram {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 10px 0 14px;
+    flex-wrap: wrap;
+  }
+  .ce-box {
+    border-radius: 8px;
+    padding: 10px 16px;
+    min-width: 140px;
+    font-size: 0.88rem;
+  }
+  .ce-box.cause { background: #2a4a7f; color: #fff; }
+  .ce-box.effect { background: #1a3a5f; color: #fff; }
+  .ce-box .ce-title { font-weight: 900; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; opacity: 0.85; }
+  .ce-box textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid rgba(255,255,255,0.5);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    width: 100%;
+    outline: none;
+    resize: none;
+    min-height: 40px;
+    padding: 2px 0;
+  }
+  .ce-box textarea::placeholder { color: rgba(255,255,255,0.55); }
+  .ce-arrow {
+    font-size: 1.6rem;
+    color: #2a4a7f;
+    padding: 0 6px;
+    font-weight: 900;
+  }
+
+  /* Summary table */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+  .summary-table thead tr { background: #2a4a7f; color: #fff; }
+  .summary-table thead th { padding: 10px 14px; text-align: left; font-weight: 800; letter-spacing: 0.5px; }
+  .summary-table tbody tr:nth-child(even) { background: #f0f4fb; }
+  .summary-table tbody tr:nth-child(odd) { background: #fff; }
+  .summary-table td { padding: 0; border: 1px solid #c8d8ee; vertical-align: top; }
+  .summary-table td.title-cell { padding: 10px 14px; font-weight: 700; color: #2a4a7f; }
+  .summary-table td textarea {
+    width: 100%; border: none; background: transparent;
+    font-family: 'Nunito', sans-serif; font-size: 0.88rem;
+    padding: 8px 12px; resize: none; min-height: 52px;
+    outline: none; color: var(--text);
+  }
+  .summary-table td textarea:focus { background: #f0f8ff; }
+
+
+  .fill-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    font-size: 0.97rem;
+    line-height: 1.8;
+  }
+  .fill-line .num { color: var(--blue); font-weight: 800; min-width: 22px; }
+
+  input.gap {
+    border: none;
+    border-bottom: 2.5px solid var(--blue);
+    background: transparent;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.97rem;
+    font-weight: 700;
+    width: 80px;
+    text-align: center;
+    padding: 2px 4px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input.gap:focus { border-bottom-color: var(--gold); }
+  input.gap.correct { border-bottom-color: var(--green); color: var(--green); background: var(--green-light); border-radius: 4px; }
+  input.gap.wrong { border-bottom-color: var(--red); color: var(--red); background: var(--red-light); border-radius: 4px; }
+  input.gap.locked { opacity: 0.85; cursor: not-allowed; }
+
+  .feedback-icon { font-size: 1rem; }
+
+  /* ── REVIEW & READ-ON-OWN TABS ── */
+  .choice-pair { display: inline-flex; gap: 4px; align-items: center; }
+  .choice-btn {
+    border: 2px solid #9b72d0; background: #faf5ff; color: #3a1a6e;
+    border-radius: 20px; padding: 3px 14px;
+    font-family: 'Nunito', sans-serif; font-size: 0.93rem; font-weight: 700;
+    cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .choice-btn:hover:not(:disabled) { background: #e8d8ff; }
+  .choice-btn.selected { background: #6b3fa0; color: #fff; border-color: #6b3fa0; }
+  .choice-btn.correct  { background: #2e8b57; color: #fff; border-color: #2e8b57; cursor: default; }
+  .choice-btn.wrong    { background: #c0392b; color: #fff; border-color: #c0392b; }
+  .choice-btn:disabled { opacity: 0.85; cursor: default; }
+
+  .sentence-item { margin-bottom: 12px; font-size: 0.93rem; line-height: 1.8; }
+  .sentence-num  { font-weight: 800; color: #6b3fa0; margin-right: 6px; }
+
+  .mistake-text {
+    background: #f5f5f0; border-radius: 10px; padding: 14px 18px;
+    font-size: 0.93rem; line-height: 2; margin-bottom: 14px; border: 1.5px solid #ddd;
+  }
+  input.name-gap {
+    border: none; border-bottom: 2.5px solid #6b3fa0; background: transparent;
+    font-family: 'Nunito', sans-serif; font-size: 0.93rem; font-weight: 700;
+    width: 150px; text-align: center; padding: 2px 4px; color: var(--text); outline: none;
+  }
+  input.name-gap.correct { border-bottom-color: var(--green); color: var(--green); background: var(--green-light); border-radius: 4px; }
+  input.name-gap.wrong   { border-bottom-color: var(--red); color: var(--red); background: var(--red-light); border-radius: 4px; }
+  input.name-gap.locked  { opacity: 0.85; cursor: not-allowed; }
+
+  select.sent-match {
+    border: 2px solid #6b3fa0; border-radius: 8px; padding: 4px 8px;
+    font-family: 'Nunito', sans-serif; font-size: 0.88rem; font-weight: 600;
+    color: var(--text); background: #faf5ff; cursor: pointer; outline: none; margin-left: 8px;
+  }
+  select.sent-match.correct { border-color: var(--green); background: var(--green-light); color: var(--green); }
+  select.sent-match.wrong   { border-color: var(--red); background: var(--red-light); }
+  select.sent-match:disabled { opacity: 0.85; cursor: not-allowed; }
+
+  .welcome-article {
+    background: #1a1a2e; color: #e0e8ff; border-radius: 12px;
+    padding: 20px 22px; margin-bottom: 18px; font-size: 0.93rem; line-height: 1.9;
+  }
+  .welcome-article h2 {
+    text-align: center; letter-spacing: 3px; font-size: 1.1rem; font-weight: 900;
+    color: #fff; margin-bottom: 14px; text-transform: uppercase;
+  }
+  .welcome-article .footnote { font-size: 0.78rem; color: #aac; margin-top: 10px; direction: rtl; text-align: right; }
+
+
+
+  /* Check button */
+  .check-btn {
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 9px 26px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 14px;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .check-btn:hover { background: #1549880; transform: translateY(-1px); }
+  .check-btn:active { transform: translateY(0); }
+  .check-btn:disabled { background: #aab; cursor: not-allowed; transform: none; }
+
+  .reset-btn {
+    background: transparent;
+    color: var(--red);
+    border: 2px solid var(--red);
+    border-radius: 20px;
+    padding: 7px 20px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 14px;
+    margin-left: 10px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .reset-btn:hover { background: var(--red); color: #fff; }
+
+  /* Attempts badge */
+  .attempts-badge {
+    display: inline-block;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-left: 6px;
+  }
+
+  /* Result message */
+  .result-msg {
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 8px 14px;
+    border-radius: 8px;
+    display: none;
+  }
+  .result-msg.show { display: block; }
+  .result-msg.good { background: var(--green-light); color: var(--green); }
+  .result-msg.bad { background: var(--red-light); color: var(--red); }
+
+  /* ── VOCAB TABLE ── */
+  .vocab-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.93rem;
+    margin-bottom: 6px;
+  }
+  .vocab-table thead tr {
+    background: #6b3fa0;
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.88rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .vocab-table thead td { padding: 10px 14px; text-align: center; }
+  .vocab-table tbody tr:nth-child(even) { background: #f3eefb; }
+  .vocab-table tbody tr:nth-child(odd) { background: #faf8ff; }
+  .vocab-table td { padding: 8px 14px; border-bottom: 1px solid #e0d4f5; }
+  .vocab-table .eng { font-weight: 700; color: #3a1a6e; }
+  .vocab-table .heb-cell { direction: rtl; text-align: right; color: #444; font-size: 0.88rem; }
+  .vocab-table .ara-cell { direction: rtl; text-align: right; color: #888; font-size: 0.82rem; }
+
+  /* ── WORD BANK BOX ── */
+  .word-bank-box {
+    background: #fffbe6;
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 12px 18px;
+    margin-bottom: 14px;
+    font-size: 0.93rem;
+  }
+  .word-bank-box .wb-title { font-weight: 800; color: #8a5e0a; margin-bottom: 8px; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 1px; }
+  .word-bank-box .wb-words { display: flex; flex-wrap: wrap; gap: 8px; }
+  .word-bank-box .wb-word {
+    background: #fff3c4;
+    color: #7a4f00;
+    border-radius: 16px;
+    padding: 4px 14px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: 1.5px solid #e6c45a;
+  }
+
+  /* ── MATCHING ── */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+    margin-bottom: 10px;
+  }
+  .match-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.94rem;
+  }
+  .match-word { font-weight: 700; color: #3a1a6e; min-width: 110px; }
+  select.match-select {
+    border: 2px solid #9b72d0;
+    border-radius: 8px;
+    padding: 5px 8px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+    background: #faf5ff;
+    cursor: pointer;
+    outline: none;
+    flex: 1;
+  }
+  select.match-select.correct { border-color: var(--green); background: var(--green-light); color: var(--green); }
+  select.match-select.wrong { border-color: var(--red); background: var(--red-light); }
+  select.match-select:disabled { opacity: 0.85; cursor: not-allowed; }
+
+  /* ── FREE WRITING ── */
+  textarea.free-write {
+    width: 100%;
+    border: 2px solid #9b72d0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    resize: vertical;
+    min-height: 70px;
+    outline: none;
+    color: var(--text);
+    background: #faf5ff;
+    transition: border-color 0.2s;
+    margin-top: 6px;
+  }
+  textarea.free-write:focus { border-color: #6b3fa0; }
+  .free-write-label { font-weight: 700; color: #3a1a6e; font-size: 0.93rem; margin-bottom: 4px; direction: ltr; }
+  .free-write-heb { direction: rtl; text-align: right; font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; }
+  .submit-btn {
+    background: #6b3fa0;
+    color: #fff;
+    border: none;
+    border-radius: 18px;
+    padding: 8px 24px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+  }
+  .submit-btn:hover { background: #4e2a80; }
+  .saved-tag { display: inline-block; background: var(--green-light); color: var(--green); border-radius: 12px; padding: 3px 12px; font-size: 0.82rem; font-weight: 700; margin-left: 10px; display: none; }
+
+  /* Tab score */
+  .tab-score-line {
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .tab-score-line span { color: var(--blue); font-weight: 800; }
+
+</style>
+</head>
+<body>
+
+<!-- STICKY SCORE BAR -->
+<div id="score-bar">
+  <div class="title-bar">📘 Unit 3 – Past of BE + Cause and Effect</div>
+  <div id="score-display">Score: 0 / 0</div>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="unit-label">Unit 3 · I Care · Grade 9</div>
+  <h1><span>Past of "BE" + Cause and Effect</span></h1>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('tab1', this)">📖 Grammar Review</button>
+  <button class="tab-btn" onclick="switchTab('tabV', this)">🔤 Vocabulary</button>
+  <button class="tab-btn" onclick="switchTab('tab2', this)">✍️ Crown Village</button>
+  <button class="tab-btn" onclick="switchTab('tabR', this)">📰 Helpful Teenagers</button>
+  <button class="tab-btn" onclick="switchTab('tab3', this)">💬 Dialogues</button>
+  <button class="tab-btn" onclick="switchTab('tab4', this)">🔎 Review</button>
+  <button class="tab-btn" onclick="switchTab('tab5', this)">⭐ Read on Your Own</button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 1 – GRAMMAR REVIEW
+══════════════════════════════════════════════ -->
+<div id="tab1" class="tab-pane active">
+
+  <!-- Just to remind you -->
+  <div class="section-card">
+    <div class="section-label"><span class="badge">A</span> Just to remind you</div>
+    <div class="remind-box">
+      <div class="heb">רק להזכיר לכם – Just to remind you!</div>
+      <p>In the <strong>Past Simple</strong>, the verb <strong>"BE"</strong> changes to <strong>WAS</strong> or <strong>WERE</strong>.</p>
+    </div>
+
+    <div class="word-pills">
+      <span class="pill">was</span>
+      <span class="pill">were</span>
+    </div>
+
+    <div class="examples">
+      <p>• <em>The bag <span class="verb-highlight">was</span> empty a moment ago.</em></p>
+      <p>• <em>Jack and Joe <span class="verb-highlight">were</span> hungry.</em></p>
+    </div>
+
+    <div class="pronoun-chart">
+      <div class="pronoun-col">
+        <div class="pronouns">I<br>he<br>she<br>it</div>
+        <div class="verb">→ WAS</div>
+      </div>
+      <div class="pronoun-col">
+        <div class="pronouns">you<br>we<br>they</div>
+        <div class="verb">→ WERE</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section B – Negatives & Questions -->
+  <div class="section-card">
+    <div class="section-label"><span class="badge">B</span> Negatives &amp; Questions</div>
+    <div class="note-bilingual">
+      <div class="heb-note">כפי שאתם רואים, אין צורך בפועל עזר במשפטי שלילה ושאלה עם הפועל "BE".</div>
+      <div class="ara-note">كما ترون، لا حاجة لفعل مساعد في جُمل النفي والاستفهام مع الفعل "BE".</div>
+    </div>
+    <div class="examples">
+      <p>• <em>My grandmother <span class="verb-highlight">was not</span> sad.</em></p>
+      <p>• <em><span class="verb-highlight">Was</span> it near Sand City?</em></p>
+      <p>• <em>Where <span class="verb-highlight">was</span> it?</em></p>
+    </div>
+
+    <!-- Quick drill -->
+    <div style="margin-top:18px; background: var(--gray); border-radius:10px; padding:16px 18px;">
+      <div style="font-weight:800; color:var(--blue); margin-bottom:12px;">⚡ Quick Check – was / were?</div>
+      <div class="tab-score-line">Section score: <span id="tab1-score">0 / 6</span></div>
+
+      <div id="drill-items">
+        <!-- item 0 -->
+        <div class="fill-line"><span class="num">1.</span> She <input class="gap" id="d0" data-ans="was" data-att="0" placeholder="___"> sick yesterday. <span class="feedback-icon" id="fi0"></span></div>
+        <!-- item 1 -->
+        <div class="fill-line"><span class="num">2.</span> They <input class="gap" id="d1" data-ans="were" data-att="0" placeholder="___"> at school. <span class="feedback-icon" id="fi1"></span></div>
+        <!-- item 2 -->
+        <div class="fill-line"><span class="num">3.</span> It <input class="gap" id="d2" data-ans="was" data-att="0" placeholder="___"> cold outside. <span class="feedback-icon" id="fi2"></span></div>
+        <!-- item 3 -->
+        <div class="fill-line"><span class="num">4.</span> We <input class="gap" id="d3" data-ans="were" data-att="0" placeholder="___"> very hungry. <span class="feedback-icon" id="fi3"></span></div>
+        <!-- item 4 -->
+        <div class="fill-line"><span class="num">5.</span> He <input class="gap" id="d4" data-ans="was" data-att="0" placeholder="___"> my friend. <span class="feedback-icon" id="fi4"></span></div>
+        <!-- item 5 -->
+        <div class="fill-line"><span class="num">6.</span> You <input class="gap" id="d5" data-ans="were" data-att="0" placeholder="___"> right! <span class="feedback-icon" id="fi5"></span></div>
+      </div>
+
+      <div id="result-tab1" class="result-msg"></div>
+      <button class="check-btn" onclick="checkSection('tab1-drill', 6, 'd', 'result-tab1', 'tab1-score', 'tab1-check-btn')" id="tab1-check-btn">✔ Check Answers</button>
+      <button class="reset-btn" onclick="resetSection('tab1-drill', 6, 'd', 'result-tab1', 'tab1-score', 'tab1-check-btn')">↺ Reset</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB V – VOCABULARY
+══════════════════════════════════════════════ -->
+<div id="tabV" class="tab-pane">
+
+  <!-- VOCABULARY TABLES -->
+  <div class="section-card">
+    <div class="section-label">📚 Vocabulary You Probably Know</div>
+    <table class="vocab-table">
+      <thead><tr><td>English</td><td>עברית</td><td>عربي</td></tr></thead>
+      <tbody>
+        <tr><td class="eng">around</td><td class="heb-cell">סביב</td><td class="ara-cell">حَوْل</td></tr>
+        <tr><td class="eng">center</td><td class="heb-cell">מרכז</td><td class="ara-cell">مركز</td></tr>
+        <tr><td class="eng">clean up</td><td class="heb-cell">לנקות</td><td class="ara-cell">ينظف</td></tr>
+        <tr><td class="eng">dirty</td><td class="heb-cell">מלוכלך</td><td class="ara-cell">قذر، وسخ</td></tr>
+        <tr><td class="eng">(a) need</td><td class="heb-cell">צורך</td><td class="ara-cell">حاجة</td></tr>
+        <tr><td class="eng">(a) neighbor</td><td class="heb-cell">שכן / שכנה</td><td class="ara-cell">جار / جارة</td></tr>
+        <tr><td class="eng">(a) playground</td><td class="heb-cell">מגרש משחקים</td><td class="ara-cell">ساحة ألعاب</td></tr>
+        <tr><td class="eng">(to) visit</td><td class="heb-cell">לבקר</td><td class="ara-cell">يزور</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-card">
+    <div class="section-label">🆕 New Vocabulary</div>
+    <table class="vocab-table">
+      <thead><tr><td>English</td><td>עברית</td><td>عربي</td></tr></thead>
+      <tbody>
+        <tr><td class="eng">(to) collect</td><td class="heb-cell">לאסוף</td><td class="ara-cell">يجمع</td></tr>
+        <tr><td class="eng">(a) community</td><td class="heb-cell">קהילה</td><td class="ara-cell">مجتمع، جالية</td></tr>
+        <tr><td class="eng">(to) fill</td><td class="heb-cell">למלא</td><td class="ara-cell">يملأ، يعبّن</td></tr>
+        <tr><td class="eng">garbage</td><td class="heb-cell">אשפה</td><td class="ara-cell">زبالة، نفاية</td></tr>
+        <tr><td class="eng">(a) neighborhood</td><td class="heb-cell">שכונה</td><td class="ara-cell">حي، حارة</td></tr>
+        <tr><td class="eng">online</td><td class="heb-cell">מקוון, ברשת</td><td class="ara-cell">على الإنترنت</td></tr>
+        <tr><td class="eng">(to) plant</td><td class="heb-cell">לשתול</td><td class="ara-cell">يزرع</td></tr>
+        <tr><td class="eng">(to) volunteer</td><td class="heb-cell">להתנדב</td><td class="ara-cell">يتطوّع</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXERCISE C – Fill in from Word Bank -->
+  <div class="section-card">
+    <div class="section-label"><span class="badge">C</span> Complete the sentences</div>
+    <div style="text-align:right; font-size:0.85rem; color:var(--muted); direction:rtl; margin-bottom:10px;">השלימו את המשפטים · أكملوا الجمل</div>
+
+    <div class="word-bank-box">
+      <div class="wb-title">📦 Word Bank 1</div>
+      <div class="wb-words">
+        <span class="wb-word">collects</span>
+        <span class="wb-word">dirty</span>
+        <span class="wb-word">fill</span>
+        <span class="wb-word">garbage</span>
+        <span class="wb-word">neighbors</span>
+      </div>
+    </div>
+
+    <div id="vc-items1">
+      <div class="fill-line"><span class="num">1.</span> Please <input class="gap" id="vc0" data-ans="fill" data-att="0" placeholder="___"> the cooking pot with water. <span class="feedback-icon" id="fvc0"></span></div>
+      <div class="fill-line"><span class="num">2.</span> Don't touch the baby! Your hands are <input class="gap" id="vc1" data-ans="dirty" data-att="0" placeholder="___">. <span class="feedback-icon" id="fvc1"></span></div>
+      <div class="fill-line"><span class="num">3.</span> It's my job to take out the <input class="gap" id="vc2" data-ans="garbage" data-att="0" placeholder="___"> every evening. <span class="feedback-icon" id="fvc2"></span></div>
+      <div class="fill-line"><span class="num">4.</span> We share the pool with our <input class="gap" id="vc3" data-ans="neighbors" data-att="0" placeholder="___">. <span class="feedback-icon" id="fvc3"></span></div>
+      <div class="fill-line"><span class="num">5.</span> Ted's father has a hobby. He <input class="gap" id="vc4" data-ans="collects" data-att="0" placeholder="___"> pens. <span class="feedback-icon" id="fvc4"></span></div>
+    </div>
+
+    <div class="word-bank-box" style="margin-top:18px;">
+      <div class="wb-title">📦 Word Bank 2</div>
+      <div class="wb-words">
+        <span class="wb-word">around</span>
+        <span class="wb-word">neighborhood</span>
+        <span class="wb-word">planted</span>
+        <span class="wb-word">volunteer</span>
+      </div>
+    </div>
+
+    <div id="vc-items2">
+      <div class="fill-line"><span class="num">6.</span> ⭐ Many teenagers <input class="gap" id="vc5" data-ans="volunteer" data-att="0" placeholder="___"> in activities that help the community. <span class="feedback-icon" id="fvc5"></span></div>
+      <div class="fill-line"><span class="num">7.</span> The houses in that <input class="gap" id="vc6" data-ans="neighborhood" data-att="0" placeholder="___"> are very old. <span class="feedback-icon" id="fvc6"></span></div>
+      <div class="fill-line"><span class="num">8.</span> Five people are sitting <input class="gap" id="vc7" data-ans="around" data-att="0" placeholder="___"> the table. <span class="feedback-icon" id="fvc7"></span></div>
+      <div class="fill-line"><span class="num">9.</span> They <input class="gap" id="vc8" data-ans="planted" data-att="0" placeholder="___"> two trees in their garden. <span class="feedback-icon" id="fvc8"></span></div>
+    </div>
+
+    <div class="tab-score-line" style="margin-top:14px;">Section score: <span id="tabV-score">0 / 9</span></div>
+    <div id="result-tabV" class="result-msg"></div>
+    <button class="check-btn" onclick="checkVocab()" id="tabV-check-btn" style="background:#6b3fa0;">✔ Check Answers</button>
+    <button class="reset-btn" onclick="resetVocab()" style="color:#6b3fa0; border-color:#6b3fa0;">↺ Reset</button>
+  </div>
+
+  <!-- EXERCISE – MATCHING -->
+  <div class="section-card">
+    <div class="section-label">🔗 Match the word to its meaning</div>
+    <div style="text-align:right; font-size:0.85rem; color:var(--muted); direction:rtl; margin-bottom:14px;">התאימו את המילה למשמעות שלה · طابق الكلمة مع معناها</div>
+
+    <div class="tab-score-line">Section score: <span id="tabM-score">0 / 6</span></div>
+
+    <div class="match-grid" id="match-items">
+      <div class="match-row">
+        <span class="match-word">community</span>
+        <select class="match-select" id="m0" data-ans="a group of people living together" data-att="0">
+          <option value="">-- choose --</option>
+          <option>to go and see someone</option>
+          <option>a group of people living together</option>
+          <option>to put a plant in the ground</option>
+          <option>not clean</option>
+          <option>waste material</option>
+          <option>the area around your home</option>
+        </select>
+        <span class="feedback-icon" id="fm0"></span>
+      </div>
+      <div class="match-row">
+        <span class="match-word">garbage</span>
+        <select class="match-select" id="m1" data-ans="waste material" data-att="0">
+          <option value="">-- choose --</option>
+          <option>to go and see someone</option>
+          <option>a group of people living together</option>
+          <option>to put a plant in the ground</option>
+          <option>not clean</option>
+          <option>waste material</option>
+          <option>the area around your home</option>
+        </select>
+        <span class="feedback-icon" id="fm1"></span>
+      </div>
+      <div class="match-row">
+        <span class="match-word">neighborhood</span>
+        <select class="match-select" id="m2" data-ans="the area around your home" data-att="0">
+          <option value="">-- choose --</option>
+          <option>to go and see someone</option>
+          <option>a group of people living together</option>
+          <option>to put a plant in the ground</option>
+          <option>not clean</option>
+          <option>waste material</option>
+          <option>the area around your home</option>
+        </select>
+        <span class="feedback-icon" id="fm2"></span>
+      </div>
+      <div class="match-row">
+        <span class="match-word">to plant</span>
+        <select class="match-select" id="m3" data-ans="to put a plant in the ground" data-att="0">
+          <option value="">-- choose --</option>
+          <option>to go and see someone</option>
+          <option>a group of people living together</option>
+          <option>to put a plant in the ground</option>
+          <option>not clean</option>
+          <option>waste material</option>
+          <option>the area around your home</option>
+        </select>
+        <span class="feedback-icon" id="fm3"></span>
+      </div>
+      <div class="match-row">
+        <span class="match-word">dirty</span>
+        <select class="match-select" id="m4" data-ans="not clean" data-att="0">
+          <option value="">-- choose --</option>
+          <option>to go and see someone</option>
+          <option>a group of people living together</option>
+          <option>to put a plant in the ground</option>
+          <option>not clean</option>
+          <option>waste material</option>
+          <option>the area around your home</option>
+        </select>
+        <span class="feedback-icon" id="fm4"></span>
+      </div>
+      <div class="match-row">
+        <span class="match-word">to visit</span>
+        <select class="match-select" id="m5" data-ans="to go and see someone" data-att="0">
+          <option value="">-- choose --</option>
+          <option>to go and see someone</option>
+          <option>a group of people living together</option>
+          <option>to put a plant in the ground</option>
+          <option>not clean</option>
+          <option>waste material</option>
+          <option>the area around your home</option>
+        </select>
+        <span class="feedback-icon" id="fm5"></span>
+      </div>
+    </div>
+
+    <div id="result-tabM" class="result-msg"></div>
+    <button class="check-btn" onclick="checkMatch()" id="tabM-check-btn" style="background:#6b3fa0;">✔ Check Answers</button>
+    <button class="reset-btn" onclick="resetMatch()" style="color:#6b3fa0; border-color:#6b3fa0;">↺ Reset</button>
+  </div>
+
+  <!-- EXERCISE D – Free Writing -->
+  <div class="section-card">
+    <div class="section-label">⭐ D Write your own sentence</div>
+    <div class="free-write-heb">כתבו משפט אחד עם מילה מבנק המילים · اكتب جملة واحدة بكلمة من بنك الكلمات</div>
+    <p style="font-size:0.92rem; margin-bottom:12px; color:var(--muted);">Choose <strong>one word</strong> from the word banks and write a sentence. Use Past Simple or Present Simple.</p>
+
+    <div id="free-write-container">
+      <div style="margin-bottom:16px;">
+        <div class="free-write-label">My sentence:</div>
+        <textarea class="free-write" id="fw0" placeholder="Write your sentence here..."></textarea>
+        <br>
+        <button class="submit-btn" onclick="saveFreeWrite(0)">💾 Save</button>
+        <span class="saved-tag" id="saved0">✓ Saved!</span>
+      </div>
+    </div>
+    <p style="font-size:0.82rem; color:var(--muted); margin-top:8px;">💡 Your sentence is saved automatically. / המשפט שלך נשמר אוטומטית.</p>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 2 – CROWN VILLAGE
+══════════════════════════════════════════════ -->
+<div id="tab2" class="tab-pane">
+
+  <div class="section-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; flex-wrap:wrap; gap:8px;">
+      <div class="section-label" style="margin-bottom:0">✍️ Complete the text</div>
+      <div style="font-size:0.88rem; color:var(--muted); direction:rtl;">השלימו את הטקסט · أكملوا</div>
+    </div>
+    <div class="word-pills"><span class="pill">was</span><span class="pill">were</span></div>
+
+    <div class="passage-box">
+      <h3>Crown Village</h3>
+      <p>My grandmother lived in Crown Village many years ago. She told me about it.</p>
+      <p>"The village (1) ... small. The huts (2) ... old and gray. We and other families (3) ... poor.</p>
+      <p>We (4) ... often cold and hungry. Life (5) ... hard, but we (6) ... happy.</p>
+      <p>"Where was the village?" I asked. "Was it near Sand City?"</p>
+      <p>"Yes. It (7) ... not far from Sand City."</p>
+      <p>My grandmother (8) ... not sad when she talked about the village. She liked to talk about the old days.</p>
+      <div class="tip-note">
+        <strong>💡 TIP for (5):</strong> The word <em>life</em> is singular in English.<br>
+        <span style="font-size:0.82rem; direction:rtl; display:block; text-align:right;">המילה life היא ביחיד באנגלית.</span>
+      </div>
+    </div>
+
+    <div class="tab-score-line">Section score: <span id="tab2-score">0 / 8</span></div>
+
+    <div id="passage-items">
+      <div class="fill-line"><span class="num">1.</span> The village <input class="gap" id="p0" data-ans="was" data-att="0" placeholder="___"> small. <span class="feedback-icon" id="fp0"></span></div>
+      <div class="fill-line"><span class="num">2.</span> The huts <input class="gap" id="p1" data-ans="were" data-att="0" placeholder="___"> old and gray. <span class="feedback-icon" id="fp1"></span></div>
+      <div class="fill-line"><span class="num">3.</span> We and other families <input class="gap" id="p2" data-ans="were" data-att="0" placeholder="___"> poor. <span class="feedback-icon" id="fp2"></span></div>
+      <div class="fill-line"><span class="num">4.</span> We <input class="gap" id="p3" data-ans="were" data-att="0" placeholder="___"> often cold and hungry. <span class="feedback-icon" id="fp3"></span></div>
+      <div class="fill-line"><span class="num">5.</span> Life <input class="gap" id="p4" data-ans="was" data-att="0" placeholder="___"> hard, but we <input class="gap" id="p5" data-ans="were" data-att="0" placeholder="___"> happy. <span class="feedback-icon" id="fp5"></span></div>
+      <div class="fill-line"><span class="num">7.</span> It <input class="gap" id="p6" data-ans="was" data-att="0" placeholder="___"> not far from Sand City. <span class="feedback-icon" id="fp6"></span></div>
+      <div class="fill-line"><span class="num">8.</span> My grandmother <input class="gap" id="p7" data-ans="was" data-att="0" placeholder="___"> not sad. <span class="feedback-icon" id="fp7"></span></div>
+    </div>
+
+    <div id="result-tab2" class="result-msg"></div>
+    <button class="check-btn" onclick="checkSection('tab2-passage', 8, 'p', 'result-tab2', 'tab2-score', 'tab2-check-btn')" id="tab2-check-btn">✔ Check Answers</button>
+    <button class="reset-btn" onclick="resetSection('tab2-passage', 8, 'p', 'result-tab2', 'tab2-score', 'tab2-check-btn')">↺ Reset</button>
+  </div>
+
+  <!-- Comprehension questions -->
+  <div class="section-card">
+    <div class="section-label">🔍 Reading Comprehension</div>
+    <p style="font-size:0.9rem; color:var(--muted); margin-bottom:14px;">Answer about Crown Village. Write <strong>was / were</strong> or short answers.</p>
+    <div class="tab-score-line">Section score: <span id="tab2b-score">0 / 4</span></div>
+
+    <div id="comp-items">
+      <div class="fill-line"><span class="num">1.</span> The village <input class="gap" id="c0" data-ans="was" data-att="0" placeholder="___"> near Sand City. <span class="feedback-icon" id="fc0"></span></div>
+      <div class="fill-line"><span class="num">2.</span> The huts <input class="gap" id="c1" data-ans="were" data-att="0" placeholder="___"> old and gray. <span class="feedback-icon" id="fc1"></span></div>
+      <div class="fill-line"><span class="num">3.</span> The grandmother <input class="gap" id="c2" data-ans="was" data-att="0" placeholder="___"> not sad. <span class="feedback-icon" id="fc2"></span></div>
+      <div class="fill-line"><span class="num">4.</span> Life <input class="gap" id="c3" data-ans="was" data-att="0" placeholder="___"> hard but they <input class="gap" id="c3b" data-ans="were" data-att="0" placeholder="___"> happy. <span class="feedback-icon" id="fc3b"></span></div>
+    </div>
+
+    <div id="result-tab2b" class="result-msg"></div>
+    <button class="check-btn" onclick="checkSection('tab2b-comp', 4, 'c', 'result-tab2b', 'tab2b-score', 'tab2b-check-btn')" id="tab2b-check-btn">✔ Check Answers</button>
+    <button class="reset-btn" onclick="resetSection('tab2b-comp', 4, 'c', 'result-tab2b', 'tab2b-score', 'tab2b-check-btn')">↺ Reset</button>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB R – HELPFUL TEENAGERS (Reading + C&E)
+══════════════════════════════════════════════ -->
+<div id="tabR" class="tab-pane">
+
+  <div style="background:#fff3cd; border-left:4px solid #e6a817; border-radius:8px; padding:10px 16px; margin-bottom:18px; font-size:0.88rem; color:#7a5a00;">
+    <strong>📋 Instructions:</strong> Read the article. Then answer the questions below each text. Finally, complete the summary table at the bottom.<br>
+    <span style="direction:rtl; display:block; text-align:right; margin-top:4px; color:#555;">קראו את הטקסט, ענו על השאלות ומלאו את הטבלה. · اقرأ النص وأجب عن الأسئلة وأكمل الجدول.</span>
+  </div>
+
+  <!-- ── TEXT 1 ── -->
+  <div class="mag-card">
+    <div class="mag-header"><span class="num-badge">1</span> Online Community Magazine</div>
+    <div class="mag-body">
+      <div class="article-tag">
+        HELPFUL TEENAGERS
+        <span class="subtitle">Teens Clean Up Playground</span>
+      </div>
+      <div class="article-text">
+        <span class="line-num">1</span>A group of teenagers decided to make their neighborhood a better place, <strong>so</strong> they cleaned up the playground on Green Street.<br>
+        <span class="line-num">4</span>"The kids didn't come to play there," said Ed (15). "The swings were dirty and there was garbage everywhere. Now the playground is clean, <strong>so</strong> the kids enjoy spending the afternoon there."
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">1a. Why did the teenagers decide to clean up the playground? (lines 1-3)</div>
+        <div class="q-prompt">They decided to … <em>because</em> they wanted to …</div>
+        <textarea class="q-answer" id="r1a" placeholder="Write your answer here..."></textarea>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">1b. What is the CAUSE and what is the EFFECT?</div>
+        <div class="ce-diagram">
+          <div class="ce-box cause"><div class="ce-title">⚙ CAUSE (Why?)</div><textarea id="ce1-cause" placeholder="Why did they do it?"></textarea></div>
+          <div class="ce-arrow">→</div>
+          <div class="ce-box effect"><div class="ce-title">💥 EFFECT (What?)</div><textarea id="ce1-effect" placeholder="What happened?"></textarea></div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">2a. Why didn't the kids come to play there? (lines 4-7)</div>
+        <div class="q-prompt">The … were … and there …, so …</div>
+        <textarea class="q-answer" id="r2a" placeholder="Write your answer here..."></textarea>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">2b. What is the CAUSE and what is the EFFECT?</div>
+        <div class="ce-diagram">
+          <div class="ce-box cause"><div class="ce-title">⚙ CAUSE (Why?)</div><textarea id="ce2-cause" placeholder="Why?"></textarea></div>
+          <div class="ce-arrow">→</div>
+          <div class="ce-box effect"><div class="ce-title">💥 EFFECT (What?)</div><textarea id="ce2-effect" placeholder="What happened?"></textarea></div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">⭐ 3. Rewrite the last sentence using the word <em>"because."</em></div>
+        <div style="font-size:0.82rem; direction:rtl; text-align:right; color:var(--muted); margin-bottom:4px;">שכתבו את המשפט האחרון של הכתבה בעזרת המילה "because".</div>
+        <textarea class="q-answer" id="r3" placeholder='The kids enjoy... because...'></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TEXT 2 ── -->
+  <div class="mag-card">
+    <div class="mag-header"><span class="num-badge">2</span> Online Community Magazine</div>
+    <div class="mag-body">
+      <div class="article-tag">
+        HELPFUL TEENAGERS
+        <span class="subtitle">Teens Plant Flowers</span>
+      </div>
+      <div class="article-text">
+        <span class="line-num">1</span>A group of teenagers planted flowers around the houses in Alice Village. "It's an old neighborhood with gray houses," said Helen (16). "The flowers make it more colorful."<br>
+        <span class="line-num">5</span>"It was a good idea," said Mr. Lee, who lives in Alice Village. "The flowers bring a smile to our faces."
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">1. Where did the teenagers plant flowers?</div>
+        <textarea class="q-answer" id="r4" placeholder="They planted flowers..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">2. What is Alice Village?</div>
+        <textarea class="q-answer" id="r5" placeholder="It is..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">3. What color are the houses?</div>
+        <textarea class="q-answer" id="r6" placeholder="The houses are..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">4. Now the neighborhood is … because of …</div>
+        <textarea class="q-answer" id="r7" placeholder="Now the neighborhood is more colorful because of..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">5. Complete the cause and write the effect.</div>
+        <div class="ce-diagram">
+          <div class="ce-box cause"><div class="ce-title">⚙ CAUSE (Why?)</div><textarea id="ce3-cause" placeholder="The teenagers ... flowers."></textarea></div>
+          <div class="ce-arrow">→</div>
+          <div class="ce-box effect"><div class="ce-title">💥 EFFECT (What?)</div><textarea id="ce3-effect" placeholder="Write the effect..."></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TEXT 3 ── -->
+  <div class="mag-card">
+    <div class="mag-header"><span class="num-badge">3</span> Online Community Magazine</div>
+    <div class="mag-body">
+      <div class="article-tag">
+        HELPFUL TEENAGERS
+        <span class="subtitle">Story Time at the Community Center and More</span>
+      </div>
+      <div class="article-text">
+        <span class="line-num">1</span>Bert Baxter (17) volunteers at the Community Center. He tells stories to children with special needs. He also visits the children at their homes. "It's important to spend quality time with these kids. They need it," Bert says. "I enjoy my work very much. Giving of<br>
+        <span class="line-num">5</span>myself to these kids makes me feel good. The kids are happy, too."
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">1. What TWO things does Bert do for the children?</div>
+        <textarea class="q-answer" id="r8" placeholder="He ... and he also ..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">2. Where do the children listen to Bert's stories?</div>
+        <textarea class="q-answer" id="r9" placeholder="They listen at..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">3. Bert gives of himself to the children. What effect does it have on him?</div>
+        <textarea class="q-answer" id="r10" placeholder="It makes him feel..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">4. How do you think the children feel about Bert?</div>
+        <textarea class="q-answer" id="r11" placeholder="I think the children feel..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TEXT 4 ── -->
+  <div class="mag-card">
+    <div class="mag-header"><span class="num-badge">4</span> Online Community Magazine</div>
+    <div class="mag-body">
+      <div class="article-tag">
+        HELPFUL TEENAGERS
+        <span class="subtitle">"Care and Share"</span>
+      </div>
+      <div class="article-text">
+        <span class="line-num">1</span>Five teenagers started a project which they call "Care and Share". They collect clothes and books for children in need.<br>
+        <span class="line-num">3</span>"This project helps me a lot," says Mrs. Harris, a mother of four. "I can't afford to buy new clothes and books for my children. Now they have everything they need."<br>
+        <span class="line-num">7</span>Here is the message the teenagers sent out to community members:<br>
+        "There are empty boxes around the village. Please fill them with clothes and books you don't use anymore.<br>
+        <span class="line-num">10</span><strong>HELP A CHILD IN NEED!"</strong>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">1. What do the teenagers do for children in need? (lines 1-2)</div>
+        <textarea class="q-answer" id="r12" placeholder="They collect..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">2. How many children does Mrs. Harris have? (lines 3-5)</div>
+        <textarea class="q-answer" id="r13" placeholder="She has..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">3. Why does this project help Mrs. Harris a lot? (lines 3-5)</div>
+        <textarea class="q-answer" id="r14" placeholder="Because she can't afford..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">4. Where did the teenagers put the empty boxes? (lines 8-10)</div>
+        <textarea class="q-answer" id="r15" placeholder="They put the boxes..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">5. What do the teenagers want people to do? (lines 8-10)</div>
+        <textarea class="q-answer" id="r16" placeholder="They want people to..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">6. Read the cause and write the effect. (lines 8-10)</div>
+        <div class="ce-diagram">
+          <div class="ce-box cause"><div class="ce-title">⚙ CAUSE (Why?)</div><textarea id="ce4-cause">You care and share.</textarea></div>
+          <div class="ce-arrow">→</div>
+          <div class="ce-box effect"><div class="ce-title">💥 EFFECT (What?)</div><textarea id="ce4-effect" placeholder="Children in need get..."></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SUMMARY TABLE B ── -->
+  <div class="section-card">
+    <div class="section-label">📊 B – Summary Table</div>
+    <div style="font-size:0.88rem; color:var(--muted); margin-bottom:12px;">Share your information with your group. Complete the table. · שתפו חברי קבוצתכם במידע שלכם. השלימו את הטבלה.</div>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th style="width:32%">TITLE</th>
+          <th style="width:34%">CAUSE</th>
+          <th style="width:34%">EFFECT OF TEENS' WORK</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="title-cell">1. Teens Clean Up Playground</td>
+          <td><textarea id="st1-cause" placeholder="Write the cause..."></textarea></td>
+          <td><textarea id="st1-effect" placeholder="Write the effect..."></textarea></td>
+        </tr>
+        <tr>
+          <td class="title-cell">2. Teens Plant Flowers</td>
+          <td><textarea id="st2-cause" placeholder="Write the cause..."></textarea></td>
+          <td><textarea id="st2-effect" placeholder="Write the effect..."></textarea></td>
+        </tr>
+        <tr>
+          <td class="title-cell">3. Story Time at the Community Center and More</td>
+          <td><textarea id="st3-cause" placeholder="Write the cause..."></textarea></td>
+          <td><textarea id="st3-effect" placeholder="Write the effect..."></textarea></td>
+        </tr>
+        <tr>
+          <td class="title-cell">4. "Care and Share"</td>
+          <td><textarea id="st4-cause" placeholder="Write the cause..."></textarea></td>
+          <td><textarea id="st4-effect" placeholder="Write the effect..."></textarea></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="submit-btn" onclick="saveReadingTab()" style="margin-top:14px;">💾 Save All Answers</button>
+    <span class="saved-tag" id="reading-saved" style="display:none;">✓ Saved!</span>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 3 – DIALOGUES
+══════════════════════════════════════════════ -->
+<div id="tab3" class="tab-pane">
+
+  <!-- Dialogue D – Read -->
+  <div class="section-card">
+    <div class="section-label"><span class="badge">D</span> Read the Dialogue</div>
+    <div style="text-align:right; font-size:0.85rem; color:var(--muted); direction:rtl; margin-bottom:10px;">קראו את הדו-שיח · اقرأوا المحادثة</div>
+    <div class="dialogue-box">
+      <div><span class="speaker-betty">Betty:</span> Arnold, <strong>did</strong> you <strong>cook</strong> vegetable soup?</div>
+      <div><span class="speaker-arnold">Arnold:</span> No, I <strong>didn't</strong>. I <strong>didn't cook</strong> vegetable soup. I cooked chicken soup.</div>
+      <div><span class="speaker-betty">Betty:</span> <strong>Was</strong> it tasty?</div>
+      <div><span class="speaker-arnold">Arnold:</span> No, it <strong>wasn't</strong>. It <strong>was not</strong> tasty. It <strong>was</strong> terrible!</div>
+      <div><span class="speaker-betty">Betty:</span> Why <strong>was</strong> it terrible?</div>
+      <div><span class="speaker-arnold">Arnold:</span> I forgot to put salt in it.</div>
+    </div>
+    <p style="font-size:0.88rem; color:var(--muted);">💡 Read it aloud with a partner if you can! הצגו את הדו-שיח בזוגות.</p>
+  </div>
+
+  <!-- Dialogue E – Complete -->
+  <div class="section-card">
+    <div class="section-label"><span class="badge">⭐ E</span> Complete the Dialogue</div>
+    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+      <div style="font-size:0.9rem;">השלימו את הדו-שיח הבא בעזרת: · أكملوا المحادثة التالية بمساعدة:</div>
+    </div>
+    <div class="word-pills">
+      <span class="pill">Was / was</span>
+      <span class="pill">Were / were</span>
+    </div>
+
+    <div class="dialogue-box" id="dial-e-box">
+      <div><span class="speaker-meg">Meg:</span> Peg, where <input class="gap" id="e0" data-ans="were" data-att="0" placeholder="___"> you yesterday?</div>
+      <div><span class="speaker-peg">Peg:</span> My family and I <input class="gap" id="e1" data-ans="were" data-att="0" placeholder="___"> at a food festival.</div>
+      <div><span class="speaker-meg">Meg:</span> Where <input class="gap" id="e2" data-ans="was" data-att="0" placeholder="___"> the festival?</div>
+      <div><span class="speaker-peg">Peg:</span> At the marketplace of the Old Town.</div>
+      <div><span class="speaker-meg">Meg:</span> <input class="gap" id="e3" data-ans="were" data-att="0" placeholder="___"> there many people there?</div>
+      <div><span class="speaker-peg">Peg:</span> Yes. There <input class="gap" id="e4" data-ans="were" data-att="0" placeholder="___"> many people and there <input class="gap" id="e5" data-ans="was" data-att="0" placeholder="___"> a lot of food.</div>
+      <div><span class="speaker-meg">Meg:</span> How <input class="gap" id="e6" data-ans="was" data-att="0" placeholder="___"> the food? <input class="gap" id="e7" data-ans="was" data-att="0" placeholder="___"> it tasty?</div>
+      <div><span class="speaker-peg">Peg:</span> Very tasty. We enjoyed it very much.</div>
+      <div><span class="speaker-meg">Meg:</span> What <input class="gap" id="e8" data-ans="was" data-att="0" placeholder="___"> the best thing you ate there?</div>
+      <div><span class="speaker-peg">Peg:</span> Chocolate balls. They <input class="gap" id="e9" data-ans="were" data-att="0" placeholder="___"> very special.</div>
+      <div><span class="speaker-meg">Meg:</span> Why <input class="gap" id="e10" data-ans="were" data-att="0" placeholder="___"> they special?</div>
+      <div><span class="speaker-peg">Peg:</span> I don't know. There <input class="gap" id="e11" data-ans="was" data-att="0" placeholder="___"> a secret ingredient in them, I guess.</div>
+    </div>
+
+    <div class="tab-score-line">Section score: <span id="tab3-score">0 / 12</span></div>
+    <div id="result-tab3" class="result-msg"></div>
+    <button class="check-btn" onclick="checkSection('tab3-dial', 12, 'e', 'result-tab3', 'tab3-score', 'tab3-check-btn')" id="tab3-check-btn">✔ Check Answers</button>
+    <button class="reset-btn" onclick="resetSection('tab3-dial', 12, 'e', 'result-tab3', 'tab3-score', 'tab3-check-btn')">↺ Reset</button>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 4 – REVIEW (16 + Workbook)
+══════════════════════════════════════════════ -->
+<div id="tab4" class="tab-pane">
+
+  <!-- 16A – Find THREE mistakes -->
+  <div class="section-card">
+    <div class="section-label">🔎 16A – Find the THREE Mistakes</div>
+    <div style="font-size:0.88rem; color:var(--muted); margin-bottom:10px; direction:rtl; text-align:right;">העיתון המקומי כתב על בני הנוער, אבל יש 3 שגיאות. מצאו אותן וכתבו את התיקונים למטה.</div>
+    <div class="mistake-text">
+      <div class="mistake-line">A group of teenagers <strong>planted flowers in the playground</strong> on Green Street.</div>
+      <div class="mistake-line">Another group <strong>cleaned up the gardens</strong> in Alice Village.</div>
+      <div class="mistake-line">Other teenagers help their community <strong>regularly</strong>.</div>
+      <div class="mistake-line">Bert Baxter tells stories to children with special needs.</div>
+      <div class="mistake-line"><strong>Five teenagers collect money</strong> for children in need.</div>
+      <div class="mistake-line">These teenagers make the world a better place.</div>
+    </div>
+    <p style="font-size:0.88rem; color:#6b3fa0; font-weight:700; margin-bottom:10px;">Write the 3 corrections: <span style="font-size:0.8rem; color:var(--muted); font-weight:400;">(כתבו את התיקון הנכון)</span></p>
+    <div class="tab-score-line">Section score: <span id="tab4a-score">0 / 3</span></div>
+    <div style="margin-bottom:10px;">
+      <div class="fill-line"><span class="num">1.</span>
+        Instead of "planted flowers in the playground":
+        <input class="gap" id="m16a0" data-ans="cleaned up the playground" data-att="0" placeholder="write correction..." style="width:220px;">
+        <span class="feedback-icon" id="fm16a0"></span>
+      </div>
+      <div class="fill-line"><span class="num">2.</span>
+        Instead of "cleaned up the gardens":
+        <input class="gap" id="m16a1" data-ans="planted flowers" data-att="0" placeholder="write correction..." style="width:220px;">
+        <span class="feedback-icon" id="fm16a1"></span>
+      </div>
+      <div class="fill-line"><span class="num">3.</span>
+        Instead of "five teenagers collect money":
+        <input class="gap" id="m16a2" data-ans="collect clothes and books" data-att="0" placeholder="write correction..." style="width:220px;">
+        <span class="feedback-icon" id="fm16a2"></span>
+      </div>
+    </div>
+    <div id="result-tab4a" class="result-msg"></div>
+    <button class="check-btn" onclick="checkCustom(['m16a0','m16a1','m16a2'],'result-tab4a','tab4a-score','tab4a-btn')" id="tab4a-btn" style="background:#6b3fa0;">✔ Check</button>
+    <button class="reset-btn" onclick="resetCustom(['m16a0','m16a1','m16a2'],'result-tab4a','tab4a-score','tab4a-btn',3)" style="color:#6b3fa0;border-color:#6b3fa0;">↺ Reset</button>
+  </div>
+
+  <!-- 16B – Who said it? -->
+  <div class="section-card">
+    <div class="section-label">💬 16B – Who Said It?</div>
+    <div style="font-size:0.88rem; color:var(--muted); margin-bottom:12px;">Scan the texts and write the names. / סרקו את הטקסטים וכתבו את השמות.</div>
+    <div class="tab-score-line">Section score: <span id="tab4b-score">0 / 4</span></div>
+    <div id="who-said-items">
+      <div class="fill-line"><span class="num">1.</span>
+        <input class="name-gap" id="ws0" data-ans="Mr. Lee" data-att="0" placeholder="name...">
+        <span style="font-size:0.88rem; color:#444; margin-left:8px; font-style:italic;">"It was a good idea. The flowers bring a smile to our faces."</span>
+        <span class="feedback-icon" id="fws0"></span>
+      </div>
+      <div class="fill-line"><span class="num">2.</span>
+        <input class="name-gap" id="ws1" data-ans="Mrs. Harris" data-att="0" placeholder="name...">
+        <span style="font-size:0.88rem; color:#444; margin-left:8px; font-style:italic;">"I can't afford to buy new clothes and books for my children. Now they'll have everything they need."</span>
+        <span class="feedback-icon" id="fws1"></span>
+      </div>
+      <div class="fill-line"><span class="num">3.</span>
+        <input class="name-gap" id="ws2" data-ans="Bert" data-att="0" placeholder="name...">
+        <span style="font-size:0.88rem; color:#444; margin-left:8px; font-style:italic;">"Giving of myself to these kids makes me feel good."</span>
+        <span class="feedback-icon" id="fws2"></span>
+      </div>
+      <div class="fill-line"><span class="num">4.</span>
+        <input class="name-gap" id="ws3" data-ans="Ed" data-att="0" placeholder="name...">
+        <span style="font-size:0.88rem; color:#444; margin-left:8px; font-style:italic;">"The swings were dirty and there was garbage everywhere."</span>
+        <span class="feedback-icon" id="fws3"></span>
+      </div>
+    </div>
+    <div id="result-tab4b" class="result-msg"></div>
+    <button class="check-btn" onclick="checkCustom(['ws0','ws1','ws2','ws3'],'result-tab4b','tab4b-score','tab4b-btn')" id="tab4b-btn" style="background:#6b3fa0;">✔ Check</button>
+    <button class="reset-btn" onclick="resetCustom(['ws0','ws1','ws2','ws3'],'result-tab4b','tab4b-score','tab4b-btn',4)" style="color:#6b3fa0;border-color:#6b3fa0;">↺ Reset</button>
+  </div>
+
+  <!-- Workbook A – Translate -->
+  <div class="section-card">
+    <div class="section-label">📓 Workbook A – Translate</div>
+    <div style="font-size:0.88rem; color:var(--muted); margin-bottom:10px; direction:rtl; text-align:right;">תרגמו · ترجموا</div>
+    <div class="tab-score-line">Section score: <span id="tab4c-score">0 / 6</span></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px 24px;" id="translate-items">
+      <div class="fill-line"><span class="num">1.</span> around → <input class="gap" id="tr0" data-ans="סביב" data-att="0" placeholder="עברית..." style="width:100px;"> <span class="feedback-icon" id="ftr0"></span></div>
+      <div class="fill-line"><span class="num">4.</span> community → <input class="gap" id="tr3" data-ans="קהילה" data-att="0" placeholder="עברית..." style="width:100px;"> <span class="feedback-icon" id="ftr3"></span></div>
+      <div class="fill-line"><span class="num">2.</span> לאסוף → <input class="gap" id="tr1" data-ans="collect" data-att="0" placeholder="English..." style="width:100px;"> <span class="feedback-icon" id="ftr1"></span></div>
+      <div class="fill-line"><span class="num">5.</span> מלוכלך → <input class="gap" id="tr4" data-ans="dirty" data-att="0" placeholder="English..." style="width:100px;"> <span class="feedback-icon" id="ftr4"></span></div>
+      <div class="fill-line"><span class="num">3.</span> למלא → <input class="gap" id="tr2" data-ans="fill" data-att="0" placeholder="English..." style="width:100px;"> <span class="feedback-icon" id="ftr2"></span></div>
+      <div class="fill-line"><span class="num">6.</span> neighborhood → <input class="gap" id="tr5" data-ans="שכונה" data-att="0" placeholder="עברית..." style="width:100px;"> <span class="feedback-icon" id="ftr5"></span></div>
+    </div>
+    <div id="result-tab4c" class="result-msg"></div>
+    <button class="check-btn" onclick="checkCustom(['tr0','tr1','tr2','tr3','tr4','tr5'],'result-tab4c','tab4c-score','tab4c-btn')" id="tab4c-btn" style="background:#6b3fa0;">✔ Check</button>
+    <button class="reset-btn" onclick="resetCustom(['tr0','tr1','tr2','tr3','tr4','tr5'],'result-tab4c','tab4c-score','tab4c-btn',6)" style="color:#6b3fa0;border-color:#6b3fa0;">↺ Reset</button>
+  </div>
+
+  <!-- Workbook B – Sentence Matching -->
+  <div class="section-card">
+    <div class="section-label">📓 Workbook B – Match the sentences</div>
+    <div style="font-size:0.88rem; color:var(--muted); margin-bottom:10px;">Match a sentence in Box 1 with a sentence in Box 2. / התאימו בין משפט בקופסה 1 למשפט בקופסה 2.</div>
+    <div class="tab-score-line">Section score: <span id="tab4d-score">0 / 5</span></div>
+    <div style="background:#fffbe6; border:1.5px solid var(--gold); border-radius:10px; padding:14px 18px; margin-bottom:10px; font-size:0.85rem; color:#7a5a00;">
+      <strong>Box 2:</strong> a. Don't forget to empty your wastebasket, too. &nbsp;|&nbsp;
+      b. They show your family's history. &nbsp;|&nbsp;
+      c. They are dirty. &nbsp;|&nbsp;
+      d. Give of yourself to your community. &nbsp;|&nbsp;
+      e. They are for children in need.
+    </div>
+    <div id="match-sent-items">
+      <div class="sentence-item"><span class="sentence-num">1.</span> Please wash the cups.
+        <select class="sent-match" id="sm0" data-ans="c" data-att="0"><option value="">--</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option></select>
+        <span class="feedback-icon" id="fsm0"></span>
+      </div>
+      <div class="sentence-item"><span class="sentence-num">2.</span> <strong>Fill</strong> the boxes with books.
+        <select class="sent-match" id="sm1" data-ans="e" data-att="0"><option value="">--</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option></select>
+        <span class="feedback-icon" id="fsm1"></span>
+      </div>
+      <div class="sentence-item"><span class="sentence-num">3.</span> <strong>Collect</strong> old photos and old letters.
+        <select class="sent-match" id="sm2" data-ans="b" data-att="0"><option value="">--</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option></select>
+        <span class="feedback-icon" id="fsm2"></span>
+      </div>
+      <div class="sentence-item"><span class="sentence-num">4.</span> <strong>Clean up</strong> your <strong>neighborhood</strong>.
+        <select class="sent-match" id="sm3" data-ans="d" data-att="0"><option value="">--</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option></select>
+        <span class="feedback-icon" id="fsm3"></span>
+      </div>
+      <div class="sentence-item"><span class="sentence-num">5.</span> Take out the <strong>garbage</strong>.
+        <select class="sent-match" id="sm4" data-ans="a" data-att="0"><option value="">--</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option></select>
+        <span class="feedback-icon" id="fsm4"></span>
+      </div>
+    </div>
+    <div id="result-tab4d" class="result-msg"></div>
+    <button class="check-btn" onclick="checkCustomSelects(['sm0','sm1','sm2','sm3','sm4'],'result-tab4d','tab4d-score','tab4d-btn')" id="tab4d-btn" style="background:#6b3fa0;">✔ Check</button>
+    <button class="reset-btn" onclick="resetCustomSelects(['sm0','sm1','sm2','sm3','sm4'],'result-tab4d','tab4d-score','tab4d-btn')" style="color:#6b3fa0;border-color:#6b3fa0;">↺ Reset</button>
+  </div>
+
+  <!-- Workbook C – Circle the correct word -->
+  <div class="section-card">
+    <div class="section-label">📓 Workbook C – Circle the correct word</div>
+    <div style="font-size:0.88rem; color:var(--muted); margin-bottom:12px;">הקיפו את המילה הנכונה. · ضعوا دائرة حول الكلمة الصحيحة.</div>
+    <div class="tab-score-line">Section score: <span id="tab4e-score">0 / 5</span></div>
+    <div id="circle-items">
+      <div class="sentence-item">
+        <span class="sentence-num">1.</span> I am standing in the
+        <span class="choice-pair"><button class="choice-btn" onclick="pickChoice(this,'cc0','center')" id="cc0-center" data-group="cc0">center</button> / <button class="choice-btn" onclick="pickChoice(this,'cc0','carpet')" id="cc0-carpet" data-group="cc0">carpet</button></span>
+        of the room. My friends are standing
+        <span class="choice-pair"><button class="choice-btn" onclick="pickChoice(this,'cc0b','around')" id="cc0b-around" data-group="cc0b">around</button> / <button class="choice-btn" onclick="pickChoice(this,'cc0b','above')" id="cc0b-above" data-group="cc0b">above</button></span> me.
+        <span class="feedback-icon" id="fcc0"></span>
+      </div>
+      <div class="sentence-item">
+        <span class="sentence-num">2.</span> The houses in this
+        <span class="choice-pair"><button class="choice-btn" onclick="pickChoice(this,'cc1','neighborhood')" id="cc1-neighborhood" data-group="cc1">neighborhood</button> / <button class="choice-btn" onclick="pickChoice(this,'cc1','playground')" id="cc1-playground" data-group="cc1">playground</button></span>
+        are very expensive.
+        <span class="feedback-icon" id="fcc1"></span>
+      </div>
+      <div class="sentence-item">
+        <span class="sentence-num">3.</span> Some people
+        <span class="choice-pair"><button class="choice-btn" onclick="pickChoice(this,'cc2','collect')" id="cc2-collect" data-group="cc2">collect</button> / <button class="choice-btn" onclick="pickChoice(this,'cc2','visit')" id="cc2-visit" data-group="cc2">visit</button></span>
+        old clocks.
+        <span class="feedback-icon" id="fcc2"></span>
+      </div>
+      <div class="sentence-item">
+        <span class="sentence-num">4.</span>
+        <span class="choice-pair"><button class="choice-btn" onclick="pickChoice(this,'cc3','plant')" id="cc3-plant" data-group="cc3">Plant</button> / <button class="choice-btn" onclick="pickChoice(this,'cc3','fill')" id="cc3-fill" data-group="cc3">Fill</button></span>
+        a tree! Make the world green.
+        <span class="feedback-icon" id="fcc3"></span>
+      </div>
+      <div class="sentence-item">
+        <span class="sentence-num">5.</span> Plastic bags
+        <span class="choice-pair"><button class="choice-btn" onclick="pickChoice(this,'cc4','fill')" id="cc4-fill" data-group="cc4">fill</button> / <button class="choice-btn" onclick="pickChoice(this,'cc4','clean up')" id="cc4-clean up" data-group="cc4">clean up</button></span>
+        the world with garbage.
+        <span class="feedback-icon" id="fcc4"></span>
+      </div>
+    </div>
+    <!-- correct answers: cc0=center, cc0b=around, cc1=neighborhood, cc2=collect, cc3=plant, cc4=fill -->
+    <div id="result-tab4e" class="result-msg"></div>
+    <button class="check-btn" onclick="checkCircle()" id="tab4e-btn" style="background:#6b3fa0;">✔ Check Answers</button>
+    <button class="reset-btn" onclick="resetCircle()" style="color:#6b3fa0;border-color:#6b3fa0;">↺ Reset</button>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TAB 5 – READ ON YOUR OWN (Welcome to Our City)
+══════════════════════════════════════════════ -->
+<div id="tab5" class="tab-pane">
+
+  <div class="section-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+      <div class="section-label" style="margin-bottom:0;">⭐ 18 – Read on Your Own</div>
+      <div style="font-size:0.82rem; background:#fff3cd; border-radius:8px; padding:4px 12px; color:#8a5e0a; font-weight:700;">★ Challenge Reading</div>
+    </div>
+
+    <div class="welcome-article">
+      <h2>Welcome to Our City!</h2>
+      <p>Greeters¹ are people who welcome tourists² to their city and show them some of its special places.</p>
+      <p>Greeters are volunteers. They love their city very much, <strong>so</strong> they want to show it to tourists. For free³!</p>
+      <p>Each greeter takes four to six tourists on a walking tour⁴. Morning tours start at 9:00. Evening tours start at 7:00. The tourists spend two or three hours with the greeters.</p>
+      <p>The greeters take the tourists to the places they like best. They show them small shops or cafés, music clubs, art galleries, and other special places. They tell them stories about old houses and the people who live or used to live there.</p>
+      <p>"Greeters are nice and friendly people," says Mr. Marks, a tourist. "They make me feel at home in the city I visit. It's like taking a walk with a friend."</p>
+      <p>If you and your family visit a city with a greeter, here's some advice: Don't tip⁵ the greeter after you take the tour. Greeters are volunteers. They work for free.</p>
+      <div class="footnote">1. greeters אנשים המברכים לשלום / شازئون &nbsp;&nbsp; 2. tourists תיירים / سُوّاح &nbsp;&nbsp; 3. for free בחינם / مجانًا &nbsp;&nbsp; 4. walking tour סיור רגלי / جولة على الأقدام &nbsp;&nbsp; 5. Don't tip אל תתנו תשר / لا تضعوا بقشيش</div>
+    </div>
+
+    <div style="background:#e8f1fb; border-radius:10px; padding:12px 16px; margin-bottom:16px; font-size:0.88rem; color:#1a5fa8; font-weight:700;">
+      💡 Cause &amp; Effect: Find the word <strong>"so"</strong> in the text. What is the cause? What is the effect?
+    </div>
+
+    <div class="tab-score-line">Answers saved automatically · התשובות נשמרות אוטומטית</div>
+
+    <div id="city-questions">
+      <div class="q-block">
+        <div class="q-label">1. What do greeters do for tourists?</div>
+        <textarea class="q-answer" id="cq0" placeholder="They..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">2. Why do greeters show their city to tourists? (Cause &amp; Effect)</div>
+        <div class="q-prompt">They show tourists their city <em>because</em> they …</div>
+        <textarea class="q-answer" id="cq1" placeholder="Because they love their city..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">3. When can you take these tours?</div>
+        <textarea class="q-answer" id="cq2" placeholder="Morning tours start at... Evening tours..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">4. What do greeters show the tourists?</div>
+        <textarea class="q-answer" id="cq3" placeholder="They show them..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">5. How do greeters make Mr. Marks feel?</div>
+        <textarea class="q-answer" id="cq4" placeholder="They make him feel..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">6. Why shouldn't you tip the greeter after the tour?</div>
+        <textarea class="q-answer" id="cq5" placeholder="Because..."></textarea>
+      </div>
+      <div class="q-block">
+        <div class="q-label">⭐ 7. Complete the Cause → Effect diagram.</div>
+        <div class="ce-diagram">
+          <div class="ce-box cause"><div class="ce-title">⚙ CAUSE</div><textarea id="cq6-cause" placeholder="Greeters love their city, so..."></textarea></div>
+          <div class="ce-arrow">→</div>
+          <div class="ce-box effect"><div class="ce-title">💥 EFFECT</div><textarea id="cq6-effect" placeholder="They want to show it to tourists for free."></textarea></div>
+        </div>
+      </div>
+    </div>
+    <button class="submit-btn" onclick="saveCityTab()" style="background:#1a5fa8; margin-top:4px;">💾 Save Answers</button>
+    <span class="saved-tag" id="city-saved" style="display:none;">✓ Saved!</span>
+  </div>
+
+</div>
+
+<script>
+// ── STORAGE KEY ──
+const STORE_KEY = 'past_be_g9_v2';
+
+// ── READING IDS ──
+const READING_IDS = [
+  'r1a','r2a','r3','r4','r5','r6','r7','r8','r9','r10','r11','r12','r13','r14','r15','r16',
+  'ce1-cause','ce1-effect','ce2-cause','ce2-effect','ce3-cause','ce3-effect','ce4-cause','ce4-effect',
+  'st1-cause','st1-effect','st2-cause','st2-effect','st3-cause','st3-effect','st4-cause','st4-effect',
+  'cq0','cq1','cq2','cq3','cq4','cq5','cq6-cause','cq6-effect'
+];
+
+// ── TAB SWITCHING ──
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── CHECK SECTION ──
+// prefix: 'd' → ids d0..d5, 'p' → p0..p7, etc.
+function checkSection(key, count, prefix, resultId, scoreId, btnId) {
+  // Special case: some sections have non-contiguous ids or extra inputs
+  let inputs = [];
+  if (prefix === 'p') {
+    // passage: p0-p7 but p5 shares line with p4 (life/were)
+    ['p0','p1','p2','p3','p4','p5','p6','p7'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) inputs.push(el);
+    });
+  } else if (prefix === 'c') {
+    // comprehension: c0,c1,c2,c3,c3b
+    ['c0','c1','c2','c3','c3b'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) inputs.push(el);
+    });
+  } else {
+    for (let i = 0; i < count; i++) {
+      const el = document.getElementById(prefix + i);
+      if (el) inputs.push(el);
+    }
+  }
+
+  let correct = 0;
+  let total = inputs.length;
+  let allAnswered = true;
+
+  inputs.forEach((inp, idx) => {
+    if (inp.disabled) return; // already locked
+    const userVal = inp.value.trim().toLowerCase();
+    const ans = inp.dataset.ans.toLowerCase();
+    const att = parseInt(inp.dataset.att) || 0;
+
+    // Icon id
+    const iconId = inp.id.replace(/^(d|p|c|e)/, f => {
+      return f === 'd' ? 'fi' : f === 'p' ? 'fp' : f === 'c' ? 'fc' : 'fe';
+    });
+    const icon = document.getElementById(iconId) ||
+                 document.getElementById('f' + inp.id);
+
+    if (!userVal) { allAnswered = false; return; }
+
+    if (userVal === ans) {
+      inp.classList.remove('wrong'); inp.classList.add('correct', 'locked');
+      inp.disabled = true;
+      if (icon) icon.innerText = '✅';
+      correct++;
+    } else {
+      inp.classList.remove('correct'); inp.classList.add('wrong');
+      inp.dataset.att = att + 1;
+      if (att + 1 >= 2) {
+        inp.classList.add('locked'); inp.disabled = true;
+        if (icon) icon.innerText = '❌';
+        inp.value = ans; // show answer
+        inp.classList.remove('wrong'); inp.classList.add('correct');
+      } else {
+        if (icon) icon.innerText = '⚠️';
+      }
+    }
+  });
+
+  // Recount correct (including newly shown answers)
+  let finalCorrect = 0;
+  inputs.forEach(inp => {
+    if (inp.classList.contains('correct')) finalCorrect++;
+  });
+
+  const scoreEl = document.getElementById(scoreId);
+  if (scoreEl) scoreEl.innerText = finalCorrect + ' / ' + total;
+
+  const resEl = document.getElementById(resultId);
+  if (resEl) {
+    resEl.classList.add('show');
+    if (finalCorrect === total) {
+      resEl.className = 'result-msg show good';
+      resEl.innerText = '🎉 Excellent! All correct!';
+    } else {
+      resEl.className = 'result-msg show bad';
+      resEl.innerText = '💪 ' + finalCorrect + ' / ' + total + ' correct. Try again!';
+    }
+  }
+
+  // Disable check button if all locked
+  let allLocked = inputs.every(inp => inp.disabled);
+  const btn = document.getElementById(btnId);
+  if (btn && allLocked) btn.disabled = true;
+
+  updateGlobalScore();
+  saveAll();
+}
+
+// ── RESET SECTION ──
+function resetSection(key, count, prefix, resultId, scoreId, btnId) {
+  let inputs = [];
+  if (prefix === 'p') {
+    ['p0','p1','p2','p3','p4','p5','p6','p7'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) inputs.push(el);
+    });
+  } else if (prefix === 'c') {
+    ['c0','c1','c2','c3','c3b'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) inputs.push(el);
+    });
+  } else {
+    for (let i = 0; i < count; i++) {
+      const el = document.getElementById(prefix + i);
+      if (el) inputs.push(el);
+    }
+  }
+
+  inputs.forEach(inp => {
+    inp.value = '';
+    inp.className = 'gap';
+    inp.disabled = false;
+    inp.dataset.att = 0;
+
+    // Reset icon
+    const iPrefix = prefix === 'd' ? 'fi' : prefix === 'p' ? 'fp' : prefix === 'c' ? 'fc' : 'fe';
+    const iconEl = document.getElementById(iPrefix + inp.id.replace(/^[a-z]+/, ''))
+                || document.getElementById('f' + inp.id);
+    if (iconEl) iconEl.innerText = '';
+  });
+
+  const scoreEl = document.getElementById(scoreId);
+  if (scoreEl) scoreEl.innerText = '0 / ' + inputs.length;
+
+  const resEl = document.getElementById(resultId);
+  if (resEl) { resEl.className = 'result-msg'; resEl.innerText = ''; }
+
+  const btn = document.getElementById(btnId);
+  if (btn) btn.disabled = false;
+
+  updateGlobalScore();
+  saveAll();
+}
+
+// ── VOCAB FILL-IN (prefix vc) ──
+function checkVocab() {
+  const ids = ['vc0','vc1','vc2','vc3','vc4','vc5','vc6','vc7','vc8'];
+  let correct = 0;
+  ids.forEach(id => {
+    const inp = document.getElementById(id);
+    if (!inp || inp.disabled) { if (inp && inp.classList.contains('correct')) correct++; return; }
+    const userVal = inp.value.trim().toLowerCase();
+    const ans = inp.dataset.ans.toLowerCase();
+    const att = parseInt(inp.dataset.att) || 0;
+    const icon = document.getElementById('f' + id);
+    if (!userVal) return;
+    if (userVal === ans) {
+      inp.classList.remove('wrong'); inp.classList.add('correct','locked'); inp.disabled = true;
+      if (icon) icon.innerText = '✅'; correct++;
+    } else {
+      inp.classList.remove('correct'); inp.classList.add('wrong');
+      inp.dataset.att = att + 1;
+      if (att + 1 >= 2) {
+        inp.classList.add('locked'); inp.disabled = true;
+        inp.value = ans; inp.classList.remove('wrong'); inp.classList.add('correct');
+        if (icon) icon.innerText = '❌'; correct++;
+      } else { if (icon) icon.innerText = '⚠️'; }
+    }
+  });
+  // Recount
+  let fc = 0;
+  ids.forEach(id => { const el = document.getElementById(id); if(el && el.classList.contains('correct')) fc++; });
+  document.getElementById('tabV-score').innerText = fc + ' / ' + ids.length;
+  const res = document.getElementById('result-tabV');
+  res.classList.add('show');
+  if (fc === ids.length) { res.className='result-msg show good'; res.innerText='🎉 Excellent! All correct!'; }
+  else { res.className='result-msg show bad'; res.innerText='💪 ' + fc + ' / ' + ids.length + ' correct. Try again!'; }
+  if (ids.every(id => document.getElementById(id)?.disabled)) document.getElementById('tabV-check-btn').disabled = true;
+  updateGlobalScore(); saveAll();
+}
+
+function resetVocab() {
+  const ids = ['vc0','vc1','vc2','vc3','vc4','vc5','vc6','vc7','vc8'];
+  ids.forEach(id => {
+    const inp = document.getElementById(id);
+    if (!inp) return;
+    inp.value=''; inp.className='gap'; inp.disabled=false; inp.dataset.att=0;
+    const icon = document.getElementById('f'+id); if(icon) icon.innerText='';
+  });
+  document.getElementById('tabV-score').innerText='0 / 9';
+  const res=document.getElementById('result-tabV'); res.className='result-msg'; res.innerText='';
+  document.getElementById('tabV-check-btn').disabled=false;
+  updateGlobalScore(); saveAll();
+}
+
+// ── MATCHING (selects) ──
+function checkMatch() {
+  const ids = ['m0','m1','m2','m3','m4','m5'];
+  let correct = 0;
+  ids.forEach((id,i) => {
+    const sel = document.getElementById(id);
+    if (!sel || sel.disabled) { if(sel && sel.classList.contains('correct')) correct++; return; }
+    const userVal = sel.value;
+    const ans = sel.dataset.ans;
+    const att = parseInt(sel.dataset.att) || 0;
+    const icon = document.getElementById('fm' + i);
+    if (!userVal) return;
+    if (userVal === ans) {
+      sel.classList.remove('wrong'); sel.classList.add('correct'); sel.disabled = true;
+      if(icon) icon.innerText='✅'; correct++;
+    } else {
+      sel.classList.remove('correct'); sel.classList.add('wrong');
+      sel.dataset.att = att+1;
+      if (att+1 >= 2) {
+        sel.disabled=true; sel.value=ans;
+        sel.classList.remove('wrong'); sel.classList.add('correct');
+        if(icon) icon.innerText='❌'; correct++;
+      } else { if(icon) icon.innerText='⚠️'; }
+    }
+  });
+  let fc=0; ids.forEach(id=>{ const el=document.getElementById(id); if(el&&el.classList.contains('correct')) fc++; });
+  document.getElementById('tabM-score').innerText = fc + ' / ' + ids.length;
+  const res=document.getElementById('result-tabM'); res.classList.add('show');
+  if(fc===ids.length){res.className='result-msg show good';res.innerText='🎉 Perfect match!';}
+  else{res.className='result-msg show bad';res.innerText='💪 '+fc+' / '+ids.length+' correct. Try again!';}
+  if(ids.every(id=>document.getElementById(id)?.disabled)) document.getElementById('tabM-check-btn').disabled=true;
+  saveAll();
+}
+
+function resetMatch() {
+  const ids = ['m0','m1','m2','m3','m4','m5'];
+  ids.forEach((id,i)=>{
+    const sel=document.getElementById(id); if(!sel) return;
+    sel.value=''; sel.className='match-select'; sel.disabled=false; sel.dataset.att=0;
+    const icon=document.getElementById('fm'+i); if(icon) icon.innerText='';
+  });
+  document.getElementById('tabM-score').innerText='0 / 6';
+  const res=document.getElementById('result-tabM'); res.className='result-msg'; res.innerText='';
+  document.getElementById('tabM-check-btn').disabled=false;
+  saveAll();
+}
+
+// ── FREE WRITE ──
+function saveFreeWrite(idx) {
+  const ta = document.getElementById('fw'+idx);
+  const tag = document.getElementById('saved'+idx);
+  if (!ta || !ta.value.trim()) return;
+  const data = JSON.parse(localStorage.getItem(STORE_KEY)||'{}');
+  data['fw__'+idx] = ta.value;
+  localStorage.setItem(STORE_KEY, JSON.stringify(data));
+  if(tag){ tag.style.display='inline-block'; setTimeout(()=>{ tag.style.display='none'; }, 2000); }
+}
+
+// ── SAVE ALL ──
+function saveAll() {
+  const data = {};
+  // gap inputs
+  document.querySelectorAll('input.gap, input.name-gap').forEach(inp => {
+    data[inp.id] = { val: inp.value, cls: inp.className, disabled: inp.disabled };
+    data[inp.id + '__att'] = inp.dataset.att;
+  });
+  // check buttons
+  document.querySelectorAll('.check-btn').forEach(btn => { data['btn__' + btn.id] = btn.disabled; });
+  // result messages
+  document.querySelectorAll('.result-msg').forEach(el => { data['msg__' + el.id] = { text: el.innerText, cls: el.className }; });
+  // score spans
+  document.querySelectorAll('[id$="-score"]').forEach(el => { if (el.tagName === 'SPAN') data['sc__' + el.id] = el.innerText; });
+  // feedback icons
+  document.querySelectorAll('[id^="fi"],[id^="fp"],[id^="fc"],[id^="fe"],[id^="fvc"],[id^="fm16"],[id^="fws"],[id^="ftr"],[id^="fsm"],[id^="fcc"]').forEach(el => { data['icon__' + el.id] = el.innerText; });
+  // all selects
+  document.querySelectorAll('select.match-select, select.sent-match').forEach(sel => {
+    data['sel__' + sel.id] = { val: sel.value, cls: sel.className, disabled: sel.disabled, att: sel.dataset.att };
+  });
+  for (let i = 0; i < 6; i++) { const ic = document.getElementById('fm' + i); if (ic) data['icon__fm' + i] = ic.innerText; }
+  // free write
+  const fw = document.getElementById('fw0'); if (fw) data['fw__0'] = fw.value;
+  // reading textareas
+  READING_IDS.forEach(id => { const el = document.getElementById(id); if (el) data['rt__' + id] = el.value; });
+  // circle state
+  data['circleState'] = JSON.stringify(circleState);
+  // choice buttons state
+  document.querySelectorAll('.choice-btn').forEach(b => { data['cbtn__' + b.id] = { cls: b.className, disabled: b.disabled }; });
+  localStorage.setItem(STORE_KEY, JSON.stringify(data));
+}
+
+// ── LOAD ALL ──
+function loadAll() {
+  const raw = localStorage.getItem(STORE_KEY); if (!raw) return;
+  try {
+    const data = JSON.parse(raw);
+    document.querySelectorAll('input.gap, input.name-gap').forEach(inp => {
+      const d = data[inp.id];
+      if (d) { inp.value = d.val; inp.className = d.cls; inp.disabled = d.disabled; }
+      if (data[inp.id + '__att'] !== undefined) inp.dataset.att = data[inp.id + '__att'];
+    });
+    document.querySelectorAll('.check-btn').forEach(btn => {
+      if (data['btn__' + btn.id] !== undefined) btn.disabled = data['btn__' + btn.id];
+    });
+    document.querySelectorAll('.result-msg').forEach(el => {
+      const v = data['msg__' + el.id]; if (v) { el.innerText = v.text; el.className = v.cls; }
+    });
+    document.querySelectorAll('[id$="-score"]').forEach(el => {
+      if (el.tagName === 'SPAN' && data['sc__' + el.id]) el.innerText = data['sc__' + el.id];
+    });
+    document.querySelectorAll('[id^="fi"],[id^="fp"],[id^="fc"],[id^="fe"],[id^="fvc"],[id^="fm16"],[id^="fws"],[id^="ftr"],[id^="fsm"],[id^="fcc"]').forEach(el => {
+      if (data['icon__' + el.id] !== undefined) el.innerText = data['icon__' + el.id];
+    });
+    document.querySelectorAll('select.match-select, select.sent-match').forEach(sel => {
+      const d = data['sel__' + sel.id]; if (!d) return;
+      sel.value = d.val; sel.className = d.cls; sel.disabled = d.disabled; sel.dataset.att = d.att || 0;
+    });
+    for (let i = 0; i < 6; i++) {
+      const ic = document.getElementById('fm' + i);
+      if (ic && data['icon__fm' + i] !== undefined) ic.innerText = data['icon__fm' + i];
+    }
+    const fw = document.getElementById('fw0'); if (fw && data['fw__0']) fw.value = data['fw__0'];
+    READING_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && data['rt__' + id] !== undefined) el.value = data['rt__' + id];
+    });
+    // restore circle state
+    if (data['circleState']) {
+      try {
+        const cs = JSON.parse(data['circleState']);
+        Object.assign(circleState, cs);
+      } catch(e) {}
+    }
+    document.querySelectorAll('.choice-btn').forEach(b => {
+      const d = data['cbtn__' + b.id]; if (!d) return;
+      b.className = d.cls; b.disabled = d.disabled;
+    });
+    updateGlobalScore();
+  } catch(e) {}
+}
+
+// ── READING TAB SAVE/LOAD ──
+function saveReadingTab() {
+  saveAll();
+  const tag = document.getElementById('reading-saved');
+  if (tag) { tag.style.display='inline-block'; setTimeout(()=>{ tag.style.display='none'; }, 2000); }
+}
+
+function saveCityTab() {
+  saveAll();
+  const tag = document.getElementById('city-saved');
+  if (tag) { tag.style.display='inline-block'; setTimeout(()=>{ tag.style.display='none'; }, 2000); }
+}
+
+// ── checkCustom: works for input.gap and input.name-gap ──
+function checkCustom(ids, resultId, scoreId, btnId) {
+  let correct = 0;
+  ids.forEach(id => {
+    const inp = document.getElementById(id);
+    if (!inp || inp.disabled) { if (inp && inp.classList.contains('correct')) correct++; return; }
+    const userVal = inp.value.trim().toLowerCase();
+    const ans = inp.dataset.ans.toLowerCase();
+    const att = parseInt(inp.dataset.att) || 0;
+    const icon = document.getElementById('f' + id);
+    if (!userVal) return;
+    if (userVal === ans) {
+      inp.classList.remove('wrong'); inp.classList.add('correct','locked'); inp.disabled = true;
+      if (icon) icon.innerText = '✅'; correct++;
+    } else {
+      inp.classList.remove('correct'); inp.classList.add('wrong');
+      inp.dataset.att = att + 1;
+      if (att + 1 >= 2) {
+        inp.classList.add('locked'); inp.disabled = true;
+        inp.value = inp.dataset.ans;
+        inp.classList.remove('wrong'); inp.classList.add('correct');
+        if (icon) icon.innerText = '❌'; correct++;
+      } else { if (icon) icon.innerText = '⚠️'; }
+    }
+  });
+  let fc = 0; ids.forEach(id => { const el=document.getElementById(id); if(el&&el.classList.contains('correct')) fc++; });
+  const se = document.getElementById(scoreId); if (se) se.innerText = fc + ' / ' + ids.length;
+  const res = document.getElementById(resultId); if (res) {
+    res.classList.add('show');
+    if (fc === ids.length) { res.className='result-msg show good'; res.innerText='🎉 All correct!'; }
+    else { res.className='result-msg show bad'; res.innerText='💪 '+fc+' / '+ids.length+' correct. Try again!'; }
+  }
+  if (ids.every(id => document.getElementById(id)?.disabled)) { const b=document.getElementById(btnId); if(b) b.disabled=true; }
+  updateGlobalScore(); saveAll();
+}
+
+function resetCustom(ids, resultId, scoreId, btnId, total) {
+  ids.forEach(id => {
+    const inp = document.getElementById(id); if (!inp) return;
+    inp.value=''; inp.className = inp.classList.contains('name-gap') ? 'name-gap' : 'gap';
+    inp.disabled=false; inp.dataset.att=0;
+    const icon=document.getElementById('f'+id); if(icon) icon.innerText='';
+  });
+  const se=document.getElementById(scoreId); if(se) se.innerText='0 / '+total;
+  const res=document.getElementById(resultId); if(res){res.className='result-msg';res.innerText='';}
+  const btn=document.getElementById(btnId); if(btn) btn.disabled=false;
+  updateGlobalScore(); saveAll();
+}
+
+// ── checkCustomSelects (sentence matching) ──
+function checkCustomSelects(ids, resultId, scoreId, btnId) {
+  let correct = 0;
+  ids.forEach((id,i) => {
+    const sel = document.getElementById(id); if (!sel || sel.disabled) { if(sel&&sel.classList.contains('correct')) correct++; return; }
+    const userVal = sel.value; const ans = sel.dataset.ans; const att = parseInt(sel.dataset.att)||0;
+    const icon = document.getElementById('f'+id);
+    if (!userVal) return;
+    if (userVal === ans) {
+      sel.classList.remove('wrong'); sel.classList.add('correct'); sel.disabled=true;
+      if(icon) icon.innerText='✅'; correct++;
+    } else {
+      sel.classList.remove('correct'); sel.classList.add('wrong'); sel.dataset.att=att+1;
+      if(att+1>=2){ sel.disabled=true; sel.value=ans; sel.classList.remove('wrong'); sel.classList.add('correct'); if(icon) icon.innerText='❌'; correct++; }
+      else { if(icon) icon.innerText='⚠️'; }
+    }
+  });
+  let fc=0; ids.forEach(id=>{ const el=document.getElementById(id); if(el&&el.classList.contains('correct')) fc++; });
+  const se=document.getElementById(scoreId); if(se) se.innerText=fc+' / '+ids.length;
+  const res=document.getElementById(resultId); if(res){
+    res.classList.add('show');
+    if(fc===ids.length){res.className='result-msg show good';res.innerText='🎉 All correct!';}
+    else{res.className='result-msg show bad';res.innerText='💪 '+fc+' / '+ids.length+' correct. Try again!';}
+  }
+  if(ids.every(id=>document.getElementById(id)?.disabled)){const b=document.getElementById(btnId);if(b)b.disabled=true;}
+  saveAll();
+}
+
+function resetCustomSelects(ids, resultId, scoreId, btnId) {
+  ids.forEach(id=>{ const sel=document.getElementById(id); if(!sel) return; sel.value=''; sel.className='sent-match'; sel.disabled=false; sel.dataset.att=0; const ic=document.getElementById('f'+id); if(ic) ic.innerText=''; });
+  const se=document.getElementById(scoreId); if(se) se.innerText='0 / '+ids.length;
+  const res=document.getElementById(resultId); if(res){res.className='result-msg';res.innerText='';}
+  const btn=document.getElementById(btnId); if(btn) btn.disabled=false;
+  saveAll();
+}
+
+// ── Circle the correct word ──
+const CIRCLE_CORRECT = { cc0:'center', cc0b:'around', cc1:'neighborhood', cc2:'collect', cc3:'plant', cc4:'fill' };
+const CIRCLE_GROUPS = ['cc0','cc0b','cc1','cc2','cc3','cc4'];
+const circleState = {}; // group → chosen value
+
+function pickChoice(btn, group, val) {
+  if (circleState[group + '__locked']) return;
+  // Deselect others in group
+  document.querySelectorAll(`[data-group="${group}"]`).forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  circleState[group] = val;
+  saveAll();
+}
+
+function checkCircle() {
+  let correct = 0, total = Object.keys(CIRCLE_CORRECT).length;
+  CIRCLE_GROUPS.forEach(group => {
+    const chosen = circleState[group];
+    const ans = CIRCLE_CORRECT[group];
+    const icon = document.getElementById('fcc' + group.replace('cc','').replace('b',''));
+    if (!chosen) return;
+    const allBtns = document.querySelectorAll(`[data-group="${group}"]`);
+    if (chosen === ans) {
+      allBtns.forEach(b => { b.disabled=true; if(b.classList.contains('selected')) b.classList.replace('selected','correct'); });
+      circleState[group+'__locked'] = true;
+      correct++;
+    } else {
+      const att = (circleState[group+'__att']||0) + 1;
+      circleState[group+'__att'] = att;
+      allBtns.forEach(b => { if(b.classList.contains('selected')) b.classList.replace('selected','wrong'); });
+      if (att >= 2) {
+        allBtns.forEach(b => { b.disabled=true; if(b.id.endsWith(ans)||b.id.endsWith('-'+ans)) b.classList.add('correct'); });
+        circleState[group+'__locked'] = true; correct++;
+      }
+    }
+  });
+  // recount
+  let fc = CIRCLE_GROUPS.filter(g => circleState[g+'__locked'] && circleState[g]===CIRCLE_CORRECT[g] || (circleState[g+'__locked'] && circleState[g+'__att']>=2)).length;
+  document.getElementById('tab4e-score').innerText = fc + ' / ' + total;
+  const res = document.getElementById('result-tab4e');
+  res.classList.add('show');
+  if (fc===total){res.className='result-msg show good';res.innerText='🎉 All correct!';}
+  else{res.className='result-msg show bad';res.innerText='💪 '+fc+' / '+total+' correct. Try again!';}
+  if(CIRCLE_GROUPS.every(g=>circleState[g+'__locked'])) document.getElementById('tab4e-btn').disabled=true;
+  saveAll();
+}
+
+function resetCircle() {
+  CIRCLE_GROUPS.forEach(g => { delete circleState[g]; delete circleState[g+'__locked']; delete circleState[g+'__att']; });
+  document.querySelectorAll('.choice-btn').forEach(b => { b.className='choice-btn'; b.disabled=false; });
+  document.getElementById('tab4e-score').innerText='0 / 6';
+  const res=document.getElementById('result-tab4e'); res.className='result-msg'; res.innerText='';
+  document.getElementById('tab4e-btn').disabled=false;
+  saveAll();
+}
+
+
+
+// ── GLOBAL SCORE ──
+function updateGlobalScore() {
+  let correct = 0, total = 0;
+  document.querySelectorAll('input.gap, input.name-gap').forEach(inp => {
+    total++;
+    if (inp.classList.contains('correct')) correct++;
+  });
+  const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+  document.getElementById('score-display').innerText = 'Score: ' + pct + ' / 100';
+}
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', () => {
+  updateGlobalScore();
+  loadAll();
+  document.querySelectorAll('input.gap, input.name-gap').forEach(inp => inp.addEventListener('input', saveAll));
+  document.querySelectorAll('select.match-select, select.sent-match').forEach(sel => sel.addEventListener('change', saveAll));
+  document.querySelectorAll('textarea').forEach(ta => ta.addEventListener('input', saveAll));
+});
+</script>
+</body>
+</html>
